@@ -359,10 +359,10 @@ function initCursor(_config?: IpadCursorConfig) {
   if (isServer || ready) return;
   if (_config) updateConfig(_config);
   ready = true;
-  window.addEventListener("mousemove", onMousemove);
-  window.addEventListener("mousedown", onMousedown);
-  window.addEventListener("mouseup", onMouseup);
-  window.addEventListener("scroll", scrollHandler);
+  document.addEventListener("mousemove", onMousemove);
+  document.addEventListener("mousedown", onMousedown);
+  document.addEventListener("mouseup", onMouseup);
+  document.addEventListener("scroll", scrollHandler);
   createCursor();
   createStyle();
   updateCursorPosition();
@@ -376,8 +376,10 @@ function initCursor(_config?: IpadCursorConfig) {
 function disposeCursor() {
   if (!ready) return;
   ready = false;
-  window.removeEventListener("mousemove", onMousemove);
-  window.removeEventListener("scroll", scrollHandler);
+  document.removeEventListener("mousemove", onMousemove);
+  document.removeEventListener("scroll", scrollHandler);
+  document.removeEventListener("mousedown", onMousedown);
+  document.removeEventListener("mouseup", onMouseup);
   cursorEle && cursorEle.remove();
   styleTag && styleTag.remove();
   styleTag = null;
